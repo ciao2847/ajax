@@ -1,3 +1,25 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,34 +32,62 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <title>非同步請求流程控制 callback promise Async/Await</title>
+    <script>
+      //Callback回呼函式
+      /*  function delayedAdd(n1, n2, dalayedTime, callback) {
+        //設定排程，延遲一段時間後執行
+        window.setTimeout(function () {
+          //延遲一段時間之後，計算加法，呼叫Callback函式
+          callback(n1 + n2);
+        }, dalayedTime);
+      }
+      function test() {
+        delayedAdd(3, 4, 2000, function (result) {
+          console.log(result);
+        });
+      } */
+      //Promise物件
+      /*
+      function delayedAdd(n1, n2, dalayedTime, callback) {
+        //建立Promise物件:new Promise(執行函式)
+        return new Promise(function (resolve, reject) {
+          window.setTimeout(function () {
+            resolve(n1 + n2); //工作完成，呼叫resolve函式，並把結果透過參數傳遞進去
+          }, dalayedTime);
+        });
+      }
+      function test() {
+        let promise1 = delayedAdd(3, 4, 2000);
+        let promise2 = delayedAdd(2, 3, 3000);
+        //多個Promise都完成後，才繼續工作
+        Promise.all([promise1, promise2]).then(function (results) {
+          let answer = results.reduce(function (total, value) {
+            return total * value;
+          });
+          console.log(answer);
+        });
+      }*/
+      //Async/Await語法，簡化Promise語法
+      function delayedAdd(n1, n2, dalayedTime, callback) {
+        //建立Promise物件:new Promise(執行函式)
+        return new Promise(function (resolve, reject) {
+          window.setTimeout(function () {
+            resolve(n1 + n2); //工作完成，呼叫resolve函式，並把結果透過參數傳遞進去
+          }, dalayedTime);
+        });
+      }
+      async function test() {
+        let result1 = await delayedAdd(3, 4, 2000);
+        let result2 = await delayedAdd(2, 3, 3000);
+        let answer = result1 * result2;
+        console.log(answer);
+      } //前提是有使用Promise物件材能使用Async/Await語法
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <h3>非同步請求流程控制 callback promise Async/Await</h3>
+    <button onclick="test();" style="padding: 10px 30px">Test</button>
   </body>
 </html>
