@@ -10,7 +10,7 @@ const ExchangeRateApp = () => {
   const [result, setResult] = useState(0); // 保存換算後的金額
 
   useEffect(() => {
-    fetch("./ExchangeRate.json") //匯率 JSON 路徑
+    fetch("/ExchangeRate.json") //匯率 JSON 路徑
       .then((response) => {
         if (!response.ok) throw new Error("連線失敗");
         return response.json();

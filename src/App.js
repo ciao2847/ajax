@@ -44,7 +44,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div
+        {/* <div
           className="progress-back"
           style={{
             backgroundColor: "rgba(0,0,0,0.2)",
@@ -63,7 +63,7 @@ class App extends Component {
             }}
           ></div>
         </div>
-        <button onClick={this.changePercent}>轉換百分比 </button>
+        <button onClick={this.changePercent}>轉換百分比 </button> */}
       </div>
     );
   }

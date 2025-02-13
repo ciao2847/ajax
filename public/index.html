@@ -20,7 +20,7 @@
 </html>
  -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -90,4 +90,98 @@
     <h3>非同步請求流程控制 callback promise Async/Await</h3>
     <button onclick="test();" style="padding: 10px 30px">Test</button>
   </body>
+</html>
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <title>學習day1</title>
+    <script>
+      const data = fetch("/Fruit.json")
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log("Original Data:", data);
+
+          const fruitsArray = Object.entries(data); // 將物件轉換為陣列
+          console.log("Fruits Array:", fruitsArray);
+
+          const NewFruit = {
+            甘蔗: { 價格: 150, 成交時間: "2017-02-24 03:34:31" },
+          };
+          fruitsArray.push(["甘蔗", NewFruit["甘蔗"]]);
+          console.log("在陣列最後新增１個元素(with push):", fruitsArray);
+
+          const remove1Fruit = fruitsArray.pop();
+          console.log("移除最後1個(with pop):", fruitsArray);
+
+          const remove2Fruit = fruitsArray.splice(-2, 2);
+          console.log(
+            "陣列倒數第二個 (-2) 開始，移除 2 個元素(with splice):",
+            fruitsArray
+          );
+
+          const Add1Fruit = [
+            "木鱉果",
+            { 價格: 1050, 成交時間: "2017-02-24 03:34:31" },
+          ];
+          fruitsArray.unshift(Add1Fruit);
+          console.log("陣列開頭新增1個元素(with unshift):", fruitsArray);
+
+          const Add2Fruit = [
+            ["桑椹", { 價格: 550, 成交時間: "2027-02-24 03:34:31" }],
+            ["奇異果", { 價格: 950, 成交時間: "2027-02-24 23:34:00" }],
+          ];
+          const NewArr = fruitsArray.concat(Add2Fruit);
+          console.log("合併兩個或多個陣列:", NewArr);
+
+          NewArr.forEach((item) => {
+            item.name = item[0];
+            console.log(item.name);
+          });
+
+          // 取得 body，準備動態插入 div
+          const body = document.body;
+
+          // 生成內容並插入 HTML
+          NewArr.forEach((item) => {
+            const fruitName = item[0];
+            const price = item[1].價格;
+            const time = item[1].成交時間;
+
+            // 建立新的 div
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "Name";
+            nameDiv.textContent = "水果名稱：" + fruitName;
+
+            const priceDiv = document.createElement("div");
+            priceDiv.className = "Price";
+            priceDiv.textContent = "價格：" + price + "元";
+
+            const timeDiv = document.createElement("div");
+            timeDiv.className = "Time";
+            timeDiv.textContent = "成交時間：" + time;
+
+            // 將這些 div 加入 body
+            body.appendChild(nameDiv);
+            body.appendChild(priceDiv);
+            body.appendChild(timeDiv);
+          });
+        })
+        .catch((error) => {
+          console.log(`Error:${error}`);
+        });
+    </script>
+  </head>
+  <body></body>
 </html>
